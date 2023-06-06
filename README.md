@@ -1,95 +1,12 @@
-#include <iostream>
-#include <fstream>
-#include <map>
-#include <string>
-
-class GroceryTracker {
-private:
-    std::string inputFileName;
-    std::map<std::string, int> itemFrequencies;
-    bool dataFileCreated;
-
-    void LoadDataFromFile() {
-        std::ifstream inputFile(inputFileName);
-        if (inputFile.is_open()) {
-            std::string item;
-            while (std::getline(inputFile, item)) {
-                itemFrequencies[item]++;
-            }
-            inputFile.close();
-        }
-    }
-
-    void CreateDataFile() {
-        std::ofstream outputFile("frequency.dat");
-        if (outputFile.is_open()) {
-            for (const auto& pair : itemFrequencies) {
-                outputFile << pair.first << " " << pair.second << std::endl;
-            }
-            outputFile.close();
-            dataFileCreated = true;
-        }
-    }
-
-public:
-    GroceryTracker(const std::string& fileName)
-        : inputFileName(fileName), dataFileCreated(false) {
-        LoadDataFromFile();
-    }
-
-    void Run() {
-        int choice;
-        while (true) {
-            std::cout << "Menu:\n"
-                      << "1. Search for an item\n"
-                      << "2. Print item frequencies\n"
-                      << "3. Print item histogram\n"
-                      << "4. Exit\n"
-                      << "Enter your choice: ";
-            std::cin >> choice;
-
-            switch (choice) {
-                case 1: {
-                    std::string searchItem;
-                    std::cout << "Enter the item to search for: ";
-                    std::cin.ignore();
-                    std::getline(std::cin, searchItem);
-                    int frequency = itemFrequencies[searchItem];
-                    std::cout << "Frequency of " << searchItem << ": " << frequency << std::endl;
-                    break;
-                }
-                case 2: {
-                    for (const auto& pair : itemFrequencies) {
-                        std::cout << pair.first << " " << pair.second << std::endl;
-                    }
-                    break;
-                }
-                case 3: {
-                    for (const auto& pair : itemFrequencies) {
-                        std::cout << pair.first << std::endl;
-                        for (int i = 0; i < pair.second; ++i) {
-                            std::cout << "*";
-                        }
-                        std::cout << std::endl;
-                    }
-                    break;
-                }
-                case 4: {
-                    if (!dataFileCreated) {
-                        CreateDataFile();
-                    }
-                    std::cout << "Exiting the program..." << std::endl;
-                    return;
-                }
-                default:
-                    std::cout << "Invalid choice. Please try again." << std::endl;
-            }
-        }
-    }
-};
-
-int main() {
-    GroceryTracker tracker("CS210_Project_Three_Input_File.txt");
-    tracker.Run();
-    return 0;
-}
+**Summarize the project and what problem it was solving.**
+The app reads a list if items from an external file and keeps count of any repeated items.
+**What did you do particularly well?**
+I feel as though I read from an external file very well.
+**Where could you enhance your code? How would these improvements make your code more efficient, secure, and so on?**
+I feel as though I could have enhanced my code to read from a database, which could make it more efficient.
+**Which pieces of the code did you find most challenging to write, and how did you overcome this? What tools or resources are you adding to your support network?**
+The most challenging part would be saving the code internally. I feel as though I need better practice with this portion.
+**What skills from this project will be particularly transferable to other projects or course work?**
+Everything that was done in this project is transferable because it is able to be used in other projects/coursework from the style, format, etc.
+**How did you make this program maintainable, readable, and adaptable?**
+White space is very important and was definitely implemented in the project to make it more readable.
